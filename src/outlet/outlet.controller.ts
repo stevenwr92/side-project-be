@@ -8,6 +8,7 @@ import {
   Body,
   ParseIntPipe,
   Param,
+  Delete,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/auth/guard';
 import { OutletDto } from './dto';
@@ -22,8 +23,15 @@ export class OutletController {
     return this.OutletService.createOutlet(dto);
   }
 
-  @Patch()
-  editOutlet() {}
+  @Patch(':id')
+  editOutlet(
+    @Param('id', ParseIntPipe)
+    @Body()
+    dto: OutletDto,
+    outletId: number,
+  ) {
+    return this.OutletService.editOutletById(dto, outletId);
+  }
 
   @Get()
   getOutlet() {
@@ -31,10 +39,18 @@ export class OutletController {
   }
 
   @Get(':id')
-  getBookmarkById(
+  getOutletById(
     @Param('id', ParseIntPipe)
     outletId: number,
   ) {
     return this.OutletService.getOutletById(outletId);
+  }
+
+  @Delete(':id')
+  deleteOutletById(
+    @Param('id', ParseIntPipe)
+    outletId: number,
+  ) {
+    return this.OutletService.deleteOutletById(outletId);
   }
 }
