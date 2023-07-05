@@ -77,6 +77,8 @@ export class OutletService {
           id,
         },
       });
+
+      return `Sukses delete outlet ${outlet.name} `;
     } catch (error) {
       console.log(error);
     }
