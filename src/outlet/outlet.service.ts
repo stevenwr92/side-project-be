@@ -25,4 +25,16 @@ export class OutletService {
       console.log(error);
     }
   }
+
+  async getOutletById(id: number) {
+    try {
+      return this.prisma.outlet.findFirst({
+        where: {
+          id,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

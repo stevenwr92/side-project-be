@@ -6,6 +6,8 @@ import {
   Req,
   UseGuards,
   Body,
+  ParseIntPipe,
+  Param,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/auth/guard';
 import { OutletDto } from './dto';
@@ -26,5 +28,13 @@ export class OutletController {
   @Get()
   getOutlet() {
     return this.OutletService.getOutlet();
+  }
+
+  @Get(':id')
+  getBookmarkById(
+    @Param('id', ParseIntPipe)
+    outletId: number,
+  ) {
+    return this.OutletService.getOutletById(outletId);
   }
 }
