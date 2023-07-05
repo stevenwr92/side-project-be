@@ -1,1 +1,1 @@
-// export * from './outlet.dto';
+export * from './outlet.dto';

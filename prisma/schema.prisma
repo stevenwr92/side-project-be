@@ -26,8 +26,8 @@ model User {
 model Outlet {
   id Int @id @default(autoincrement())
   name String
-  Location String
-  Address String
+  location String
+  address String
   phoneNumber String
 
   createdAt DateTime @default(now())
