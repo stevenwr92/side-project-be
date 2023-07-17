@@ -26,9 +26,9 @@ export class OutletController {
   @Patch(':id')
   editOutlet(
     @Param('id', ParseIntPipe)
+    outletId: number,
     @Body()
     dto: OutletDto,
-    outletId: number,
   ) {
     return this.OutletService.editOutletById(dto, outletId);
   }
@@ -39,11 +39,11 @@ export class OutletController {
   }
 
   @Get(':id')
-  getOutletById(
+  async getOutletById(
     @Param('id', ParseIntPipe)
     outletId: number,
   ) {
-    return this.OutletService.getOutletById(outletId);
+    return this.OutletService.getOutletById(+outletId);
   }
 
   @Delete(':id')
