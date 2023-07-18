@@ -39,9 +39,10 @@ model Machine {
   id Int @id @default(autoincrement())
   name String @unique
   number String @unique
+  status String
 
-  model Model @relation(fields: [modelId], references: [id])
-  modelId Int
+  model Model? @relation(fields: [modelId], references: [id],onDelete: SetNull)
+  modelId Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

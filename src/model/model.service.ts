@@ -6,6 +6,7 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ModelDto } from './dto';
 import { Prisma } from '@prisma/client';
+import { machine } from 'os';
 
 @Injectable()
 export class ModelService {
@@ -27,25 +28,26 @@ export class ModelService {
   }
 
   async getModel() {
-    return await this.prisma.model.findMany();
+    return await this.prisma.model.findMany({ include: { machines: true } });
   }
 
   async getModelById(id: number) {
-    const model = await this.prisma.model.findFirst({ where: { id } });
+    const model = await this.prisma.model.findFirst({
+      where: { id },
+      include: { machines: true },
+    });
     if (!model) throw new NotFoundException('Model Tidak Terdaftar');
     return model;
   }
 
   async editModelById(dto: ModelDto, id: number) {
     try {
-      const model = await this.prisma.model.findUnique({
-        where: { id },
-      });
+      const model = await this.prisma.model.findUnique({ where: { id } });
       if (!model) throw { message: 'Not Found' };
 
       return await this.prisma.model.update({
         where: { id },
-        data: { ...dto },
+        data: dto,
       });
     } catch (error) {
       if (error.message === 'Not Found')
@@ -73,8 +75,11 @@ export class ModelService {
 
       return { message: `Sukses delete model ${model.name}` };
     } catch (error) {
+      console.log(error);
       if (error.message === 'Not Found')
         throw new NotFoundException('Model Tidak Terdaftar');
+
+      throw error;
     }
   }
 }

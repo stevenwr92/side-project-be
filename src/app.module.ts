@@ -6,6 +6,8 @@ import { ConfigModule } from '@nestjs/config';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
 import { ModelModule } from './model/model.module';
+import { MachineService } from './machine/machine.service';
+import { MachineModule } from './machine/machine.module';
 
 @Module({
   imports: [
@@ -15,7 +17,9 @@ import { ModelModule } from './model/model.module';
     OutletModule,
     UserModule,
     ModelModule,
+    MachineModule,
   ],
   controllers: [UserController],
+  providers: [MachineService],
 })
 export class AppModule {}
