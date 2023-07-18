@@ -37,8 +37,8 @@ model Outlet {
 
 model Machine {
   id Int @id @default(autoincrement())
-  name String
-  model String
+  name String @unique
+  number String @unique
 
   model Model @relation(fields: [modelId], references: [id])
   modelId Int
@@ -48,8 +48,8 @@ model Machine {
 
 model Model {
   id Int @id @default(autoincrement())
-  name String
-  modelNumber String
+  name String @unique
+  modelNumber String @unique
   brand String
 
   machines Machine[]

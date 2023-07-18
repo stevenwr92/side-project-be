@@ -57,7 +57,7 @@ export class OutletService {
 
       if (!outlet) throw { message: 'Not Found' };
 
-      return this.prisma.outlet.update({
+      return await this.prisma.outlet.update({
         where: { id },
         data: { ...dto },
       });

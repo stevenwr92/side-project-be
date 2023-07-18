@@ -5,6 +5,7 @@ import { OutletModule } from './outlet/outlet.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
+import { ModelModule } from './model/model.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { UserModule } from './user/user.module';
     PrismaModule,
     OutletModule,
     UserModule,
+    ModelModule,
   ],
   controllers: [UserController],
 })
