@@ -19,7 +19,7 @@ import { MachineModule } from './machine/machine.module';
     ModelModule,
     MachineModule,
   ],
-  controllers: [UserController],
-  providers: [MachineService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
