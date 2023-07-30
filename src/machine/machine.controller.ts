@@ -7,11 +7,14 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { MachineService } from './machine.service';
 import { MachineDto } from './dto';
 import { EditMachineDto } from './dto/edit-machine.dto';
+import { JwtGuard } from 'src/auth/guard';
 
+@UseGuards(JwtGuard)
 @Controller('machine')
 export class MachineController {
   constructor(private MachineService: MachineService) {}

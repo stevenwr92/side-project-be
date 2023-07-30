@@ -14,6 +14,7 @@ import { JwtGuard } from 'src/auth/guard';
 import { OutletDto } from './dto';
 import { OutletService } from './outlet.service';
 
+@UseGuards(JwtGuard)
 @Controller('outlet')
 // @UseGuards(JwtGuard)
 export class OutletController {

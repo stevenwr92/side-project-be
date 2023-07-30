@@ -7,10 +7,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ModelDto } from './dto';
 import { ModelService } from './model.service';
+import { JwtGuard } from 'src/auth/guard';
 
+@UseGuards(JwtGuard)
 @Controller('model')
 export class ModelController {
   constructor(private ModelService: ModelService) {}
