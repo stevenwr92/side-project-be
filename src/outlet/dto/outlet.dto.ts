@@ -1,5 +1,7 @@
-import { IsNotEmpty, IsString, Length } from 'class-validator';
-export class OutletDto {
+import { IsNotEmpty, IsNumber, IsString, Length } from 'class-validator';
+import { Exclude, Expose, Transform, Type } from 'class-transformer';
+import { UserResponse } from 'src/user/dto';
+export class CreateOutletDto {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -15,4 +17,33 @@ export class OutletDto {
   @IsNotEmpty()
   @IsString()
   address: string;
+
+  @Transform(({ value }) => +value)
+  @IsNotEmpty()
+  @IsNumber()
+  userId: number;
+}
+
+export class OutletDto {
+  id: number;
+  name: string;
+  location: string;
+  address: string;
+  phoneNumber: string;
+
+  @Exclude()
+  createdAt: Date;
+
+  @Exclude()
+  updatedAt: Date;
+
+  @Exclude()
+  userId: number;
+
+  @Type(() => UserResponse) // Use Type decorator to specify the nested DTO for User
+  user: UserResponse;
+
+  constructor(partial: Partial<OutletDto>) {
+    Object.assign(this, partial);
+  }
 }

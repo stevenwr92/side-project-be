@@ -9,18 +9,20 @@ import {
   ParseIntPipe,
   Param,
   Delete,
+  UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
 import { JwtGuard } from 'src/auth/guard';
-import { OutletDto } from './dto';
+import { CreateOutletDto, OutletDto } from './dto';
 import { OutletService } from './outlet.service';
 
-@UseGuards(JwtGuard)
 @Controller('outlet')
 // @UseGuards(JwtGuard)
+@UseInterceptors(ClassSerializerInterceptor)
 export class OutletController {
   constructor(private OutletService: OutletService) {}
   @Post()
-  addOutlet(@Body() dto: OutletDto) {
+  addOutlet(@Body() dto: CreateOutletDto) {
     return this.OutletService.createOutlet(dto);
   }
 
@@ -29,22 +31,22 @@ export class OutletController {
     @Param('id', ParseIntPipe)
     outletId: number,
     @Body()
-    dto: OutletDto,
+    dto: CreateOutletDto,
   ) {
     return this.OutletService.editOutletById(dto, outletId);
   }
 
   @Get()
-  getOutlet() {
+  getOutlet(): Promise<OutletDto[]> {
     return this.OutletService.getOutlet();
   }
 
   @Get(':id')
-  async getOutletById(
+  getOutletById(
     @Param('id', ParseIntPipe)
     outletId: number,
-  ) {
-    return this.OutletService.getOutletById(+outletId);
+  ): Promise<OutletDto> {
+    return this.OutletService.getOutletById(outletId);
   }
 
   @Delete(':id')

@@ -7,49 +7,50 @@ import {
   ConflictException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { OutletDto } from './dto';
+import { CreateOutletDto, OutletDto } from './dto';
 import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class OutletService {
   constructor(private prisma: PrismaService) {}
-  async createOutlet(dto: OutletDto) {
+  async createOutlet(dto: CreateOutletDto) {
     try {
       let outlet = await this.prisma.outlet.create({
         data: dto,
       });
-
       return outlet;
     } catch (error) {
       if (
         error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2002'
+        error.code === 'P2002' &&
+        error.meta.target === 'name'
       )
         throw new ConflictException('Outlet Sudah Terdaftar');
 
-      throw error;
+      throw new ConflictException('Staff sudah di assign di tempat lain');
     }
   }
 
-  async getOutlet() {
+  async getOutlet(): Promise<OutletDto[]> {
     try {
-      let outlet = await this.prisma.outlet.findMany();
+      let outlets = await this.prisma.outlet.findMany();
 
-      return outlet;
+      return outlets.map((outlet) => new OutletDto(outlet));
     } catch (error) {
       console.log(error);
     }
   }
 
-  async getOutletById(id: number) {
+  async getOutletById(id: number): Promise<OutletDto> {
     const outlet = await this.prisma.outlet.findFirst({
       where: { id },
+      include: { user: true },
     });
     if (!outlet) throw new NotFoundException('Outlet Tidak Terdaftar');
-    return outlet;
+    return new OutletDto(outlet);
   }
 
-  async editOutletById(dto: OutletDto, id: number) {
+  async editOutletById(dto: CreateOutletDto, id: number) {
     try {
       const outlet = await this.prisma.outlet.findUnique({
         where: { id },
