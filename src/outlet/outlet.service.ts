@@ -5,19 +5,26 @@ import {
   HttpStatus,
   NotFoundException,
   ConflictException,
+  Inject,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateOutletDto, OutletDto } from './dto';
 import { Prisma } from '@prisma/client';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Cache } from 'cache-manager';
 
 @Injectable()
 export class OutletService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {}
   async createOutlet(dto: CreateOutletDto) {
     try {
       let outlet = await this.prisma.outlet.create({
         data: dto,
       });
+      await this.cacheManager.del('outlets');
       return outlet;
     } catch (error) {
       if (
@@ -33,9 +40,14 @@ export class OutletService {
 
   async getOutlet(): Promise<OutletDto[]> {
     try {
-      let outlets = await this.prisma.outlet.findMany();
+      let cacheOutlet = (await this.cacheManager.get('outlets')) as OutletDto[];
+      if (cacheOutlet) return cacheOutlet;
 
-      return outlets.map((outlet) => new OutletDto(outlet));
+      let outlets = await this.prisma.outlet.findMany();
+      let outlet = outlets.map((outlet) => new OutletDto(outlet));
+
+      await this.cacheManager.set('outlets', outlet, 10000);
+      return outlet;
     } catch (error) {
       console.log(error);
     }
@@ -58,6 +70,7 @@ export class OutletService {
 
       if (!outlet) throw { message: 'Not Found' };
 
+      await this.cacheManager.del('outlets');
       return await this.prisma.outlet.update({
         where: { id },
         data: { ...dto },
@@ -82,6 +95,7 @@ export class OutletService {
 
       if (!outlet) throw { message: 'Not Found' };
 
+      await this.cacheManager.del('outlets');
       await this.prisma.outlet.delete({
         where: { id },
       });

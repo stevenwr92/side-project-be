@@ -26,11 +26,12 @@ model User {
 }
 
 model Outlet {
-  id          Int    @id @default(autoincrement())
-  name        String @unique
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
   location    String
   address     String
   phoneNumber String
+  machines    Machine[]
 
   user      User     @relation(fields: [userId], references: [id])
   userId    Int      @unique
@@ -41,15 +42,21 @@ model Outlet {
 }
 
 model Machine {
-  id     Int    @id @default(autoincrement())
-  name   String @unique
-  number String @unique
-  status String
+  id            Int     @id @default(autoincrement())
+  name          String  @unique
+  number        String  @unique
+  status        String
+  isOperational Boolean
 
-  model     Model?   @relation(fields: [modelId], references: [id], onDelete: SetNull)
-  modelId   Int?
+  model   Model? @relation(fields: [modelId], references: [id], onDelete: SetNull)
+  modelId Int?
+
+  outlet    Outlet?  @relation(fields: [outletId], references: [id], onDelete: SetNull)
+  outletId  Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("Machines")
 }
 
 model Model {
@@ -62,6 +69,14 @@ model Model {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model TroubleShoot {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+
+  @@map("TroubleShoots")
 }
 
 enum Role {
