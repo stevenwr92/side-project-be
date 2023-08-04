@@ -41,12 +41,13 @@ export class OutletService {
   async getOutlet(): Promise<OutletDto[]> {
     try {
       let cacheOutlet = (await this.cacheManager.get('outlets')) as OutletDto[];
+      console.log(cacheOutlet);
       if (cacheOutlet) return cacheOutlet;
 
       let outlets = await this.prisma.outlet.findMany();
       let outlet = outlets.map((outlet) => new OutletDto(outlet));
 
-      await this.cacheManager.set('outlets', outlet, 10000);
+      await this.cacheManager.set('outlets', outlet, 5000);
       return outlet;
     } catch (error) {
       console.log(error);

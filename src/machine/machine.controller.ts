@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { MachineService } from './machine.service';
-import { MachineDto } from './dto';
+import { CreateMachineDto } from './dto';
 import { EditMachineDto } from './dto/edit-machine.dto';
 import { JwtGuard } from 'src/auth/guard';
 
@@ -20,8 +20,7 @@ export class MachineController {
   constructor(private MachineService: MachineService) {}
 
   @Post()
-  createMachine(@Body() dto: MachineDto) {
-    console.log(dto);
+  createMachine(@Body() dto: CreateMachineDto) {
     return this.MachineService.createMachine(dto);
   }
 

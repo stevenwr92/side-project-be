@@ -5,9 +5,10 @@ import { OutletModule } from './outlet/outlet.module';
 import { ConfigModule } from '@nestjs/config';
 import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
-import { ModelModule } from './model/model.module';
+// import { ModelModule } from './model/model.module';
 import { MachineService } from './machine/machine.service';
 import { MachineModule } from './machine/machine.module';
+import { TroubleshootModule } from './troubleshoot/troubleshoot.module';
 
 @Module({
   imports: [
@@ -16,8 +17,8 @@ import { MachineModule } from './machine/machine.module';
     PrismaModule,
     OutletModule,
     UserModule,
-    ModelModule,
     MachineModule,
+    TroubleshootModule,
   ],
   controllers: [],
   providers: [],

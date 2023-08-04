@@ -1,0 +1,127 @@
+{
+  "users": [
+    {
+      "email": "budi@ximply.io",
+      "password": "qwerty",
+      "role": "Admin",
+      "phoneNumber": "08129529935",
+      "name": "Budi"
+    },
+    {
+      "email": "afaf@ximply.io",
+      "password": "qwerty",
+      "role": "Staff",
+      "phoneNumber": "081287571554",
+      "name": "Afaf"
+    },
+    {
+      "email": "lukman@ximply.io",
+      "password": "qwerty",
+      "role": "Staff",
+      "phoneNumber": "081287571553",
+      "name": "Lukman"
+    }
+  ],
+  "outlets": [
+    {
+      "name": "Cideng",
+      "location": "Jakarta Pusat",
+      "phoneNumber": "5850612",
+      "address": "Jl Bahagia no 7",
+      "userId": 2
+    },
+    {
+      "name": "Jomas",
+      "location": "Jakarta Barat",
+      "phoneNumber": "5850614",
+      "address": "Jl Sukses no 7",
+      "userId": 3
+    }
+  ],
+  "machines": [
+    {
+      "name": "Dewa 1",
+      "status": "Sehat",
+      "isOperational": true,
+      "outletId": 1
+    },
+    {
+      "name": "Dewa 2",
+      "status": "Sehat",
+      "isOperational": true,
+      "outletId": 1
+    },
+    {
+      "name": "Dewa 3",
+      "status": "Sehat",
+      "isOperational": true,
+      "outletId": 1
+    },
+    {
+      "name": "Dewa 4",
+      "status": "Sehat",
+      "isOperational": false,
+      "outletId": 1
+    },
+    {
+      "name": "Dewa 5",
+      "status": "Rusak",
+      "isOperational": false,
+      "outletId": 1
+    },
+    {
+      "name": "Dewa 6",
+      "status": "Rusak",
+      "isOperational": false,
+      "outletId": 1
+    },
+    {
+      "name": "Dewa 7",
+      "status": "Dalam Perbaikan",
+      "isOperational": false,
+      "outletId": 1
+    },
+    {
+      "name": "Arjuna 1",
+      "status": "Sehat",
+      "isOperational": true,
+      "outletId": 2
+    },
+    {
+      "name": "Arjuna 2",
+      "status": "Sehat",
+      "isOperational": true,
+      "outletId": 2
+    },
+    {
+      "name": "Arjuna 3",
+      "status": "Sehat",
+      "isOperational": true,
+      "outletId": 2
+    },
+    {
+      "name": "Arjuna 4",
+      "status": "Sehat",
+      "isOperational": false,
+      "outletId": 2
+    },
+    {
+      "name": "Arjuna 5",
+      "status": "Rusak",
+      "isOperational": false,
+      "outletId": 2
+    },
+    {
+      "name": "Arjuna 6",
+      "status": "Rusak",
+      "isOperational": false,
+      "outletId": 2
+    },
+    {
+      "name": "Arjuna 7",
+      "status": "Dalam Perbaikan",
+      "isOperational": false,
+      "outletId": 2
+    }
+  ]
+}

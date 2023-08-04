@@ -1,6 +1,7 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsBoolean, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class MachineDto {
+export class CreateMachineDto {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -9,10 +10,16 @@ export class MachineDto {
   @IsString()
   number: string;
 
+  @Transform(({ value }) => +value)
   @IsNotEmpty()
-  modelId: number;
+  @IsNumber()
+  outletId: number;
 
   @IsNotEmpty()
   @IsString()
   status: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  isOperational: boolean;
 }

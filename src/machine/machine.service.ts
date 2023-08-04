@@ -1,10 +1,11 @@
 import {
   ConflictException,
+  ConsoleLogger,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { MachineDto } from './dto';
+import { CreateMachineDto } from './dto';
 import { Prisma } from '@prisma/client';
 import { EditMachineDto } from './dto/edit-machine.dto';
 
@@ -12,9 +13,8 @@ import { EditMachineDto } from './dto/edit-machine.dto';
 export class MachineService {
   constructor(private prisma: PrismaService) {}
 
-  async createMachine(dto: MachineDto) {
+  async createMachine(dto: CreateMachineDto) {
     try {
-      dto.modelId = +dto.modelId;
       let machine = await this.prisma.machine.create({ data: dto });
       return machine;
     } catch (error) {

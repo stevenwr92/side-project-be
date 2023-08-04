@@ -41,6 +41,7 @@ export class OutletDto {
   userId: number;
 
   @Type(() => UserResponse) // Use Type decorator to specify the nested DTO for User
+  @Expose({ name: 'personInCharge' })
   user: UserResponse;
 
   constructor(partial: Partial<OutletDto>) {

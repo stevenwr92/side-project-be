@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Patch,
-  Req,
   UseGuards,
   Body,
   ParseIntPipe,

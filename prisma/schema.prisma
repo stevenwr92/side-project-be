@@ -44,12 +44,8 @@ model Outlet {
 model Machine {
   id            Int     @id @default(autoincrement())
   name          String  @unique
-  number        String  @unique
   status        String
   isOperational Boolean
-
-  model   Model? @relation(fields: [modelId], references: [id], onDelete: SetNull)
-  modelId Int?
 
   outlet    Outlet?  @relation(fields: [outletId], references: [id], onDelete: SetNull)
   outletId  Int?
@@ -57,18 +53,6 @@ model Machine {
   updatedAt DateTime @updatedAt
 
   @@map("Machines")
-}
-
-model Model {
-  id          Int    @id @default(autoincrement())
-  name        String @unique
-  modelNumber String @unique
-  brand       String
-
-  machines Machine[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model TroubleShoot {
