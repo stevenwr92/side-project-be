@@ -1,8 +1,13 @@
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
+  Param,
+  ParseIntPipe,
   Patch,
+  Post,
   Req,
   UseGuards,
   UseInterceptors,
@@ -10,7 +15,7 @@ import {
 import { User } from '@prisma/client';
 import { GetUser } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard';
-import { UserResponse } from './dto';
+import { CreateUser, EditUser, UserResponse } from './dto';
 import { UserService } from './user.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
@@ -28,6 +33,26 @@ export class UserController {
     return this.UserService.getAllUser();
   }
 
-  @Patch()
-  editUser() {}
+  @Post()
+  createUser(@Body() dto: CreateUser) {
+    return this.UserService.createUser(dto);
+  }
+
+  @Patch(':id')
+  editUser(
+    @Param('id', ParseIntPipe)
+    userId: number,
+    @Body()
+    dto: EditUser,
+  ) {
+    return this.UserService.editUserById(dto, userId);
+  }
+
+  @Delete(':id')
+  deleteUserById(
+    @Param('id', ParseIntPipe)
+    userId: number,
+  ) {
+    return this.UserService.deleteUserByid(userId);
+  }
 }

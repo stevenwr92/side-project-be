@@ -20,6 +20,27 @@
       "role": "Staff",
       "phoneNumber": "081287571553",
       "name": "Lukman"
+    },
+    {
+      "email": "erwin@gmail.com",
+      "password": "qwerty",
+      "role": "Teknisi",
+      "phoneNumber": "081287571111",
+      "name": "Erwin"
+    },
+    {
+      "email": "candra@ximply.io",
+      "password": "qwerty",
+      "role": "Teknisi",
+      "phoneNumber": "0812875714123",
+      "name": "Candra"
+    },
+    {
+      "email": "setiawan@ximply.io",
+      "password": "qwerty",
+      "role": "Teknisi",
+      "phoneNumber": "081287571452",
+      "name": "Setiawan"
     }
   ],
   "outlets": [
